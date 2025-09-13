@@ -1,225 +1,495 @@
-<!DOCTYPE html><html><head>
-      <title>Augment 账号使用教程</title>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="Augment 账号使用教程 - 完整的使用指南和步骤说明">
+  <title>Augment 账号使用教程</title>
+      <meta name="description" content="Augment 账号使用教程 - 最新版本的使用指南和步骤说明">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
       <style>
-      /* 基础样式重置 */
-      * {
+    /* 现代CSS重置 */
+    *, *::before, *::after {
+      box-sizing: border-box;
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
-      }
+    }
 
-      /* 页面整体样式 */
+    /* CSS自定义属性 */
+    :root {
+      --primary-color: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary-color: #64748b;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --background: #ffffff;
+      --surface: #f8fafc;
+      --surface-elevated: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --border-color: #e2e8f0;
+      --border-light: #f1f5f9;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 8px;
+      --radius-lg: 12px;
+      --sidebar-width: 280px;
+    }
+
+    /* 基础样式 */
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
       body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         line-height: 1.6;
-        color: #2c3e50;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: var(--text-primary);
+      background-color: var(--background);
+      font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+      font-variant-numeric: oldstyle-nums;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* 布局系统 */
+    .app-container {
+      display: flex;
         min-height: 100vh;
-        padding: 20px;
-      }
+    }
 
-      /* 容器样式 */
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        backdrop-filter: blur(10px);
-      }
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--surface);
+      border-right: 1px solid var(--border-color);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
 
-      /* 头部样式 */
+    .sidebar-header {
+      padding: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--surface-elevated);
+    }
+
+    .sidebar-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sidebar-title i {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+
+    .nav-menu {
+      padding: 1rem 0;
+    }
+
+    .nav-section {
+      margin-bottom: 2rem;
+    }
+
+    .nav-section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 0 2rem 0.5rem;
+    }
+
+    .nav-item {
+      display: block;
+      padding: 0.75rem 2rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: var(--surface-elevated);
+      color: var(--primary-color);
+      border-left-color: var(--primary-color);
+    }
+
+    .nav-item.active {
+      background: var(--surface-elevated);
+      color: var(--primary-color);
+      border-left-color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    /* 主内容区域 */
+    .main-content {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      background: var(--background);
+    }
+
       .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 40px 30px;
-        text-align: center;
-        position: relative;
+      background: var(--surface-elevated);
+      border-bottom: 1px solid var(--border-color);
+      padding: 2rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
       }
 
       .header h1 {
-        font-size: 2.5em;
+      font-size: 2.5rem;
         font-weight: 700;
-        margin-bottom: 10px;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-      .header::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: float 6s ease-in-out infinite;
-      }
+    .header h1 i {
+      color: var(--primary-color);
+      font-size: 2rem;
+    }
 
-      @keyframes float {
-        0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-        50% { transform: translate(-50%, -50%) rotate(180deg); }
-      }
+    .header-description {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
 
-      /* 主要内容区域 */
       .content {
-        padding: 40px 30px;
-      }
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem;
+    }
 
-      /* 标题样式 */
-      h2 {
-        font-size: 1.8em;
+    /* 排版系统 */
+    h1, h2, h3, h4, h5, h6 {
+      line-height: 1.2;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-top: 0;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border-color);
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 i {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 i {
+      color: var(--primary-color);
+      font-size: 1.25rem;
+    }
+
+    h4 {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    strong {
+      color: var(--text-primary);
         font-weight: 600;
-        color: #34495e;
-        margin: 40px 0 20px 0;
-        padding-bottom: 10px;
-        border-bottom: 3px solid #667eea;
-        position: relative;
-      }
+    }
 
-      h2::before {
-        content: '📋';
-        margin-right: 10px;
-        font-size: 0.9em;
-      }
+    /* 卡片系统 */
+    .card {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
 
-      h3 {
-        font-size: 1.4em;
-        font-weight: 600;
-        color: #2c3e50;
-        margin: 30px 0 15px 0;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
 
-      h3::before {
-        content: '🚀';
-        margin-right: 8px;
-        font-size: 0.8em;
-      }
+    /* 警告卡片 */
+    .alert {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      margin: 1.5rem 0;
+      border-left: 4px solid;
+    }
 
-      /* 前置要求卡片 */
-      .prerequisites {
-        background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
-        border: 1px solid #feb2b2;
-        border-radius: 15px;
-        padding: 25px;
-        margin: 20px 0;
-        position: relative;
-        overflow: hidden;
-      }
+    .alert-warning {
+      background: #fef3c7;
+      border-left-color: var(--warning-color);
+      color: #92400e;
+    }
 
-      .prerequisites::before {
-        content: '⚠️';
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        font-size: 1.5em;
-      }
+    .alert-info {
+      background: #dbeafe;
+      border-left-color: var(--primary-color);
+      color: #1e40af;
+    }
 
-      .prerequisites p {
-        margin-left: 50px;
-        font-weight: 600;
-        color: #c53030;
+    .alert-success {
+      background: #d1fae5;
+      border-left-color: var(--success-color);
+      color: #065f46;
+    }
+
+    .alert-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+
+    .alert-content {
+      flex: 1;
+    }
+
+    .alert-content p {
+      margin: 0;
+      font-weight: 500;
       }
 
       /* 步骤卡片 */
       .step-card {
-        background: white;
-        border-radius: 15px;
-        padding: 25px;
-        margin: 20px 0;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        border-left: 5px solid #667eea;
-        transition: all 0.3s ease;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary-color);
       }
 
       .step-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-right: 0.75rem;
       }
 
       /* 列表样式 */
       ol, ul {
-        padding-left: 20px;
-        margin: 15px 0;
+      padding-left: 1.5rem;
+      margin: 1rem 0;
       }
 
       li {
-        margin: 12px 0;
-        padding: 8px 0;
+      margin: 0.75rem 0;
         line-height: 1.7;
+      color: var(--text-secondary);
       }
 
-      li strong {
-        color: #2c3e50;
+    li::marker {
+      color: var(--primary-color);
         font-weight: 600;
+      }
+
+    /* 按钮系统 */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+      color: white;
+    }
+
+    .btn-success {
+      background: var(--success-color);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-success:hover {
+      background: #059669;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-color);
+      color: white;
       }
 
       /* 下载链接样式 */
       .download-link {
-        display: inline-block;
-        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--success-color);
         color: white;
-        padding: 12px 25px;
-        border-radius: 25px;
+      border-radius: var(--radius);
         text-decoration: none;
-        font-weight: 600;
-        margin-top: 10px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+      font-weight: 500;
+      margin: 0.25rem 0.5rem 0.25rem 0;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
       }
 
       .download-link:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+      background: #059669;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
         color: white;
       }
 
-      .download-link::before {
-        content: '📥';
-        margin-right: 8px;
+    .download-link i {
+      font-size: 1rem;
       }
 
       /* 图片样式 */
       img {
         max-width: 100%;
         height: auto;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        margin: 15px 0;
-        transition: transform 0.3s ease;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      margin: 1.5rem 0;
+      transition: all 0.2s ease;
+      border: 1px solid var(--border-light);
       }
 
       img:hover {
-        transform: scale(1.02);
+      box-shadow: var(--shadow-md);
+      transform: scale(1.01);
       }
 
       /* 代码样式 */
       code {
-        background: #f7fafc;
-        color: #e53e3e;
-        padding: 3px 8px;
-        border-radius: 6px;
-        font-family: 'Consolas', 'Monaco', monospace;
-        font-size: 0.9em;
-        border: 1px solid #e2e8f0;
+      background: var(--surface);
+      color: var(--danger-color);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius);
+      font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 1px solid var(--border-color);
       }
 
       pre {
-        background: #2d3748;
+      background: #1e293b;
         color: #e2e8f0;
-        padding: 20px;
-        border-radius: 10px;
+      padding: 1.5rem;
+      border-radius: var(--radius-lg);
         overflow-x: auto;
-        margin: 15px 0;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #334155;
       }
 
       pre code {
@@ -227,117 +497,162 @@
         color: inherit;
         padding: 0;
         border: none;
+      font-size: 0.875rem;
       }
 
-      /* 按钮样式 */
-      .btn {
+    /* 工具提示 */
+    .tooltip {
+      position: relative;
         display: inline-block;
-        padding: 12px 30px;
-        border-radius: 25px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
+    }
+
+    .tooltip:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text-primary);
+      color: white;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius);
+      font-size: 0.75rem;
+      white-space: nowrap;
+      z-index: 1000;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* 移动端菜单切换 */
+    .mobile-menu-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 200;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 0.75rem;
+      box-shadow: var(--shadow-md);
         cursor: pointer;
-        border: none;
-        font-size: 16px;
+      color: var(--text-primary);
+    }
+
+    .mobile-menu-toggle:hover {
+      background: var(--surface);
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 1024px) {
+      :root {
+        --sidebar-width: 260px;
       }
-
-      .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      
+      .content {
+        padding: 2rem;
       }
-
-      .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        color: white;
+      
+      .header-content {
+        padding: 0 2rem;
       }
+    }
 
-      /* 重要提醒样式 */
-      .important-note {
-        background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
-        border-left: 5px solid #e53e3e;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 20px 0;
-        position: relative;
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: block;
       }
-
-      .important-note::before {
-        content: '⚠️';
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        font-size: 1.2em;
+      
+      .sidebar {
+        transform: translateX(-100%);
       }
-
-      .important-note p {
-        margin-left: 40px;
-        color: #c53030;
-        font-weight: 600;
+      
+      .sidebar.open {
+        transform: translateX(0);
       }
-
-      /* 响应式设计 */
-      @media (max-width: 768px) {
-        body {
-          padding: 10px;
-        }
-
-        .container {
-          margin: 0;
-          border-radius: 10px;
-        }
-
-        .header {
-          padding: 30px 20px;
+      
+      .main-content {
+        margin-left: 0;
+      }
+      
+      .content {
+        padding: 1.5rem;
+        margin-top: 4rem;
+      }
+      
+      .header-content {
+        padding: 0 1.5rem;
         }
 
         .header h1 {
-          font-size: 2em;
-        }
-
-        .content {
-          padding: 20px;
-        }
-
-        h2 {
-          font-size: 1.5em;
-        }
-
-        h3 {
-          font-size: 1.2em;
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.75rem;
+      }
+      
+      h3 {
+        font-size: 1.25rem;
         }
 
         .step-card {
-          padding: 20px;
+        padding: 1.5rem;
+      }
+      
+      .download-link {
+        width: 100%;
+        justify-content: center;
+        margin: 0.5rem 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content {
+        padding: 1rem;
+      }
+      
+      .header-content {
+        padding: 0 1rem;
+      }
+      
+      .header h1 {
+        font-size: 1.75rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .step-card {
+        padding: 1rem;
+      }
+      
+      .alert {
+        padding: 1rem;
         }
       }
 
       /* 滚动条样式 */
       ::-webkit-scrollbar {
-        width: 8px;
+      width: 6px;
       }
 
       ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
+      background: var(--surface);
       }
 
       ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 10px;
+      background: var(--border-color);
+      border-radius: 3px;
       }
 
       ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+      background: var(--text-muted);
       }
 
       /* 动画效果 */
       @keyframes fadeInUp {
         from {
           opacity: 0;
-          transform: translateY(30px);
+        transform: translateY(20px);
         }
         to {
           opacity: 1;
@@ -346,62 +661,231 @@
       }
 
       .step-card {
-        animation: fadeInUp 0.6s ease-out;
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    .step-card:nth-child(odd) { 
+      animation-delay: 0.1s; 
+    }
+    
+    .step-card:nth-child(even) { 
+      animation-delay: 0.2s; 
+    }
+
+    /* 平滑滚动到锚点 */
+    html {
+      scroll-padding-top: 6rem;
+    }
+
+    /* 链接样式 */
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // 移动端菜单切换
+      const menuToggle = document.querySelector('.mobile-menu-toggle');
+      const sidebar = document.querySelector('.sidebar');
+      
+      if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', function() {
+          sidebar.classList.toggle('open');
+        });
       }
 
-      .step-card:nth-child(1) { animation-delay: 0.1s; }
-      .step-card:nth-child(2) { animation-delay: 0.2s; }
-      .step-card:nth-child(3) { animation-delay: 0.3s; }
-      </style>
-      
-      <style>
-      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
-/* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+      // 平滑滚动到锚点
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
 
-      </style>
-      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-    // your code here
-  });
-</script></head><body>
-  <div class="container">
-    <div class="header">
-      <h1>Augment 账号使用教程</h1>
+      // 高亮当前章节
+      const navItems = document.querySelectorAll('.nav-item');
+      const sections = document.querySelectorAll('h2[id], h3[id]');
+      
+      function highlightCurrentSection() {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const scrollPos = window.scrollY + 200;
+          if (scrollPos >= sectionTop) {
+            current = section.getAttribute('id');
+          }
+        });
+        
+        navItems.forEach(item => {
+          item.classList.remove('active');
+          if (item.getAttribute('href') === '#' + current) {
+            item.classList.add('active');
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', highlightCurrentSection);
+      highlightCurrentSection();
+    });
+  </script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 移动端菜单按钮 -->
+    <button class="mobile-menu-toggle" aria-label="切换菜单">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- 侧边栏导航 -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">
+          <i class="fas fa-rocket"></i>
+          Augment 教程
     </div>
+      </div>
+
+      <div class="nav-menu">
+        <div class="nav-section">
+          <div class="nav-section-title">快速开始</div>
+          <a href="#prerequisites" class="nav-item">前置要求</a>
+          <a href="#usage-steps" class="nav-item">使用步骤</a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">详细步骤</div>
+          <a href="#step-1" class="nav-item">1. 准备工作</a>
+          <a href="#step-2" class="nav-item">2. 安装插件</a>
+          <a href="#step-3" class="nav-item">3. 配置账户</a>
+          <a href="#step-4" class="nav-item">4. 登录 Augment</a>
+          <a href="#step-5" class="nav-item">5. 账号切换</a>
+        </div>
+        
+      </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+      <header class="header">
+        <div class="header-content">
+          <h1>
+            <i class="fas fa-code"></i>
+            Augment 账号使用教程
+          </h1>
+          <p class="header-description">账号使用指南和步骤说明，适用于 Windows、Mac、Linux 系统</p>
+        </div>
+      </header>
+
     <div class="content">
-      <div class="prerequisites">
+        <!-- 前置要求 -->
+        <section id="prerequisites">
+          <div class="alert alert-warning">
+            <div class="alert-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="alert-content">
         <p><strong>重要提醒</strong>：使用本教程的前提是已经在对应的 IDE 中卸载官方的 Augment 插件，后续会安装特定版本的插件。</p>
+            </div>
+          </div>
+          
+          <div class="alert alert-info">
+            <div class="alert-icon">
+              <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="alert-content">
         <p>本教程适用于 Windows、Mac、Linux 的 VSCode 用户，也适用于基于 VSCode 二次开发的 IDE，如 Cursor、Trea 等。</p>
         <p>本项目使用的软件均为 Github 开源项目，请放心使用。</p>
       </div>
+          </div>
+        </section>
 
-<h2 id="-使用步骤">🚀 使用步骤 </h2>
+        <!-- 使用步骤 -->
+        <section id="usage-steps">
+          <h2 id="usage-steps">
+            <i class="fas fa-rocket"></i>
+            使用步骤
+          </h2>
+        </section>
+
+        <!-- 步骤1: 准备工作 -->
+        <section id="step-1">
       <div class="step-card">
-        <h3>1. 准备工作</h3>
+            <h3 id="step-1">
+              <span class="step-number">1</span>
+              <i class="fas fa-download"></i>
+              准备工作
+            </h3>
         <p>本教程需要下载两个文件：</p>
         
-        <h4 style="font-size: 1.2em; margin: 20px 0 10px 0; color: #667eea;">1.1 下载特定版本的 Augment 插件</h4>
-        <ul>
-          <li><a href="/augment-vscode-modified-v0.555.0.vsix" class="download-link" download>直接下载 (v0.555.0)</a></li>
-          <li><a href="https://github.com/zhaochengcube/augment-code-auto/releases" class="download-link">Github 官方下载</a></li>
-        </ul>
-        
-        <h4 style="font-size: 1.2em; margin: 20px 0 10px 0; color: #667eea;">1.2 下载系统对应的 ATM 登录软件</h4>
-        <ul>
-          <li><a href="/ATM_0.5.0_amd64.AppImage" class="download-link" download>Linux 下载 (v0.5.0)</a></li>
-          <li><a href="/ATM.exe" class="download-link" download>Windows 下载 (v0.5.0)</a></li>
-          <li><a href="/ATM_0.5.0_x64.dmg" class="download-link" download>Mac Intel 下载 (v0.5.0)</a></li>
-          <li><a href="/ATM_0.5.0_aarch64.dmg" class="download-link" download>Mac Apple Silicon 下载 (v0.5.0)</a></li>
-          <li><a href="https://github.com/zhaochengcube/augment-token-mng/releases/tag/v0.5.0" class="download-link">Github 仓库下载</a></li>
-        </ul>
-        
-        <h4 style="font-size: 1.2em; margin: 20px 0 10px 0; color: #667eea;">1.3 重要准备事项</h4>
-        <p><strong>关闭杀毒软件和防火墙</strong> ⚠️ <strong>非常重要</strong></p>
+            <h4>1.1 下载特定版本的 Augment 插件</h4>
+            <div style="margin: 1rem 0;">
+              <a href="/augment-vscode-modified-v0.555.0.vsix" class="download-link" download>
+                <i class="fas fa-download"></i>
+                直接下载 (v0.555.0)
+              </a>
+              <a href="https://github.com/zhaochengcube/augment-code-auto/releases" class="download-link">
+                <i class="fab fa-github"></i>
+                Github 官方下载
+              </a>
+            </div>
+            
+            <h4>1.2 下载系统对应的 ATM 登录软件</h4>
+            <div style="margin: 1rem 0;">
+              <a href="/ATM_0.5.0_amd64.AppImage" class="download-link" download>
+                <i class="fab fa-linux"></i>
+                Linux 下载 (v0.5.0)
+              </a>
+              <a href="/ATM.exe" class="download-link" download>
+                <i class="fab fa-windows"></i>
+                Windows 下载 (v0.5.0)
+              </a>
+              <a href="/ATM_0.5.0_x64.dmg" class="download-link" download>
+                <i class="fab fa-apple"></i>
+                Mac Intel 下载 (v0.5.0)
+              </a>
+              <a href="/ATM_0.5.0_aarch64.dmg" class="download-link" download>
+                <i class="fab fa-apple"></i>
+                Mac Apple Silicon 下载 (v0.5.0)
+              </a>
+              <a href="https://github.com/zhaochengcube/augment-token-mng/releases/tag/v0.5.0" class="download-link">
+                <i class="fab fa-github"></i>
+                Github 仓库下载
+              </a>
       </div>
 
+            <h4>1.3 重要准备事项</h4>
+            <div class="alert alert-warning">
+              <div class="alert-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <div class="alert-content">
+                <p><strong>关闭杀毒软件和防火墙</strong> - 这一步非常重要，避免误报拦截</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 步骤2: 安装插件 -->
+        <section id="step-2">
       <div class="step-card">
-        <h3>2. 安装特定版本的 VSCode 插件</h3>
+            <h3 id="step-2">
+              <span class="step-number">2</span>
+              <i class="fas fa-puzzle-piece"></i>
+              安装特定版本的 VSCode 插件
+            </h3>
         <ol>
           <li>
             <p><strong>确认下载完成</strong></p>
@@ -432,9 +916,16 @@
           </li>
         </ol>
       </div>
+        </section>
 
+        <!-- 步骤3: 配置账户 -->
+        <section id="step-3">
       <div class="step-card">
-        <h3>3. 配置账户</h3>
+            <h3 id="step-3">
+              <span class="step-number">3</span>
+              <i class="fas fa-cog"></i>
+              配置账户
+            </h3>
         <ol>
           <li>
             <p><strong>运行 ATM 软件</strong></p>
@@ -459,28 +950,40 @@
           <li>
             <p><strong>填写账户信息</strong></p>
             <p>在弹出的对话框中输入你的 <code>URL</code> 和 <code>Token</code> 信息，然后点击保存</p>
-            <img src="https://img.ssfxx.com/2025/08/774580c22cb8f4999a61decb6cfca934.png" alt="输入信息">
+            <img src="https://img.ssfxx.com/2025/09/82a704dccb0b8005221abb1ab13c0503.png" alt="输入信息">
           </li>
           <li>
             <p><strong>保存配置</strong></p>
             <p>确认信息无误后保存账户配置</p>
-            <img src="https://img.ssfxx.com/2025/08/3a43ca3eaa51d878e465c9669ba9d941.png" alt="保存配置">
+            <img src="https://img.ssfxx.com/2025/09/cfeea526a8ee42fea8b85a63a07a7a20.png" alt="保存配置">
           </li>
           <li>
             <p><strong>验证配置状态</strong></p>
+            <p>配置完成后可以点击此处验证状态</p>
+            <img src="https://img.ssfxx.com/2025/09/bc89ec291f051f01277fa464bb55316c.png" alt="验证状态">
+          </li>
+          <li>
+            <p><strong>确认状态正常</strong></p>
             <p>当状态显示为 <strong>正常</strong> 时，说明账户配置成功</p>
-            <img src="https://img.ssfxx.com/2025/08/7728c86760d4f823e7e4a68991346f4e.png" alt="配置成功">
+            <img src="https://img.ssfxx.com/2025/09/52d6fc141514d9abf5bb8d3299ddc393.png" alt="状态正常">
           </li>
         </ol>
       </div>
+        </section>
 
+        <!-- 步骤4: 登录 Augment -->
+        <section id="step-4">
       <div class="step-card">
-        <h3>4. 登录 Augment</h3>
+            <h3 id="step-4">
+              <span class="step-number">4</span>
+              <i class="fas fa-sign-in-alt"></i>
+              登录 Augment
+            </h3>
         <ol>
           <li>
             <p><strong>启动登录流程</strong></p>
             <p>在 ATM 软件中点击 <strong>登录</strong> 按钮</p>
-            <img src="https://img.ssfxx.com/2025/08/79c1a801883c7e299d35675876ecb5d9.png" alt="登录按钮">
+            <img src="https://img.ssfxx.com/2025/09/66ea48a069412505e7a9e54d8b4d1832.png" alt="登录">
           </li>
           <li>
             <p><strong>选择目标 IDE</strong></p>
@@ -494,32 +997,83 @@
           </li>
           <li>
             <p><strong>完成登录</strong></p>
-            <p>登录成功！现在可以正常使用 Augment 功能了 ✅</p>
+                <div class="alert alert-success">
+                  <div class="alert-icon">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                  <div class="alert-content">
+                    <p>登录成功！现在可以正常使用 Augment 功能了</p>
+                  </div>
+                </div>
           </li>
         </ol>
       </div>
+        </section>
 
+        <!-- 步骤5: 账号切换 -->
+        <section id="step-5">
       <div class="step-card">
-        <h3>5. 账号切换操作</h3>
+            <h3 id="step-5">
+              <span class="step-number">5</span>
+              <i class="fas fa-sync-alt"></i>
+              账号切换操作
+            </h3>
         <p>如需切换账号，请按照以下步骤：</p>
         <ol>
           <li>在 Augment 插件中退出当前账号</li>
           <li>重复上述第 3、4 步骤，使用新的账号信息进行配置和登录</li>
         </ol>
+          </div>
+        </section>
+
+        <!-- 重要提醒 -->
+        <section>
+          <h2>
+            <i class="fas fa-exclamation-triangle"></i>
+            重要提醒
+          </h2>
+          <div class="card">
+            <div class="alert alert-warning">
+              <div class="alert-icon">
+                <i class="fas fa-wifi"></i>
+              </div>
+              <div class="alert-content">
+                <p><strong>网络要求</strong>：使用过程中请确保网络连接稳定，建议使用魔法上网工具</p>
+              </div>
       </div>
 
-      <div class="important-note">
-        <h3 style="color: #c53030; margin-bottom: 15px;">⚠️ 重要提醒</h3>
-        <ul style="margin-left: 20px; line-height: 1.8;">
-          <li><strong>网络要求</strong>：使用过程中请确保网络连接稳定，建议使用魔法上网工具</li>
-          <li><strong>安全软件</strong>：使用前务必关闭杀毒软件和防火墙，避免误报拦截</li>
-          <li><strong>系统兼容性</strong>：支持 Windows、Mac、Linux 系统</li>
-          <li><strong>IDE 兼容性</strong>：支持 VSCode 及其衍生版本（如 Cursor、Trea 等）</li>
-        </ul>
+            <div class="alert alert-warning">
+              <div class="alert-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <div class="alert-content">
+                <p><strong>安全软件</strong>：使用前务必关闭杀毒软件和防火墙，避免误报拦截</p>
+              </div>
       </div>
+
+            <div class="alert alert-info">
+              <div class="alert-icon">
+                <i class="fas fa-desktop"></i>
+              </div>
+              <div class="alert-content">
+                <p><strong>系统兼容性</strong>：支持 Windows、Mac、Linux 系统</p>
+              </div>
+      </div>
+
+            <div class="alert alert-info">
+              <div class="alert-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="alert-content">
+                <p><strong>IDE 兼容性</strong>：支持 VSCode 及其衍生版本（如 Cursor、Trea 等）</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
 
     </div>
+    </main>
   </div>
 </body>
 </html>
