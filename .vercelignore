@@ -1,0 +1,6 @@
+node_modules
+*.log
+.DS_Store
+.env*
+README.md
+教程.md

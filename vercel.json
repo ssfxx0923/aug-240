@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/augment-vscode-modified-v0.555.0.vsix",
+      "dest": "/public/augment-vscode-modified-v0.555.0.vsix",
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "Content-Disposition": "attachment; filename=augment-vscode-modified-v0.555.0.vsix"
+      }
+    },
+    {
+      "src": "/ATM.exe",
+      "dest": "/public/ATM.exe",
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "Content-Disposition": "attachment; filename=ATM.exe"
+      }
+    },
+    {
+      "src": "/ATM_0.5.0_amd64.AppImage",
+      "dest": "/public/ATM_0.5.0_amd64.AppImage",
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "Content-Disposition": "attachment; filename=ATM_0.5.0_amd64.AppImage"
+      }
+    },
+    {
+      "src": "/ATM_0.5.0_x64.dmg",
+      "dest": "/public/ATM_0.5.0_x64.dmg",
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "Content-Disposition": "attachment; filename=ATM_0.5.0_x64.dmg"
+      }
+    },
+    {
+      "src": "/ATM_0.5.0_aarch64.dmg",
+      "dest": "/public/ATM_0.5.0_aarch64.dmg",
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "Content-Disposition": "attachment; filename=ATM_0.5.0_aarch64.dmg"
+      }
+    },
+    {
+      "src": "/aug.rar",
+      "dest": "/public/aug.rar",
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "Content-Disposition": "attachment; filename=aug.rar"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
