@@ -24,27 +24,27 @@
       }
     },
     {
-      "src": "/ATM_0.5.0_amd64.AppImage",
-      "dest": "/public/ATM_0.5.0_amd64.AppImage",
+      "src": "/ATM_0.5.1_amd64.AppImage",
+      "dest": "/public/ATM_0.5.1_amd64.AppImage",
       "headers": {
         "Content-Type": "application/octet-stream",
-        "Content-Disposition": "attachment; filename=ATM_0.5.0_amd64.AppImage"
+        "Content-Disposition": "attachment; filename=ATM_0.5.1_amd64.AppImage"
       }
     },
     {
-      "src": "/ATM_0.5.0_x64.dmg",
-      "dest": "/public/ATM_0.5.0_x64.dmg",
+      "src": "/ATM_0.5.1_x64.dmg",
+      "dest": "/public/ATM_0.5.1_x64.dmg",
       "headers": {
         "Content-Type": "application/octet-stream",
-        "Content-Disposition": "attachment; filename=ATM_0.5.0_x64.dmg"
+        "Content-Disposition": "attachment; filename=ATM_0.5.1_x64.dmg"
       }
     },
     {
-      "src": "/ATM_0.5.0_aarch64.dmg",
-      "dest": "/public/ATM_0.5.0_aarch64.dmg",
+      "src": "/ATM_0.5.1_aarch64.dmg",
+      "dest": "/public/ATM_0.5.1_aarch64.dmg",
       "headers": {
         "Content-Type": "application/octet-stream",
-        "Content-Disposition": "attachment; filename=ATM_0.5.0_aarch64.dmg"
+        "Content-Disposition": "attachment; filename=ATM_0.5.1_aarch64.dmg"
       }
     },
     {
