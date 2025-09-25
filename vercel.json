@@ -8,11 +8,11 @@
   ],
   "routes": [
     {
-      "src": "/augment-vscode-modified-v0.560.0.vsix",
-      "dest": "/public/augment-vscode-modified-v0.560.0.vsix",
+      "src": "/augment-vscode-modified-v0.561.0.vsix",
+      "dest": "/public/augment-vscode-modified-v0.561.0.vsix",
       "headers": {
         "Content-Type": "application/octet-stream",
-        "Content-Disposition": "attachment; filename=augment-vscode-modified-v0.560.0.vsix"
+        "Content-Disposition": "attachment; filename=augment-vscode-modified-v0.561.0.vsix"
       }
     },
     {
